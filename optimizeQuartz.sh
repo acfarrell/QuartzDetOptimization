@@ -108,11 +108,13 @@ cp macro_template.mac $MACROPATH
 readarray -t quartzCenter < <(cut -d, -f2 "${GEOGENDIRECTORY}/$CSV" )
 cp $GEOGENDIRECTORY/cadp.csv $GEOGENDIRECTORY/cadp_opt.csv
 OUTPUTDIRECTORY=$GEOGENDIRECTORY/output_optimize_${ring}${sector}_$parname
-[ ! -d "$OUTPUTDIRECTORY" ] && { mkdir $OUTPUTDIRECTORY; }
+[ -d "$OUTPUTDIRECTORY" ] && { rm -r $OUTPUTDIRECTORY; mkdir $OUTPUTDIRECTORY; }
+
 cp get_pe.C $OUTPUTDIRECTORY/
 cp Makefile $OUTPUTDIRECTORY/
-cp $REMOLLDIRECTORY/build/libremoll.so $OUTPUTDIRECTORY
-cp $REMOLLDIRECTORY/build/remolltypes.hh $OUTPUTDIRECTORY
+
+cp $REMOLLDIRECTORY/build/libremoll.so $OUTPUTDIRECTORY/
+cp $REMOLLDIRECTORY/include/remolltypes.hh $OUTPUTDIRECTORY/
 echo "Created output directory at $OUTPUTDIRECTORY"
 
 if [ ! $ring -lt 5 ] 

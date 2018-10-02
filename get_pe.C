@@ -6,6 +6,9 @@
 #include "TTree.h"
 #include "TH1.h"
 #include "TF1.h"
+#include "remolltypes.hh"
+#include <TROOT.h>
+#include <TStyle.h>
 
 using namespace std;
 
