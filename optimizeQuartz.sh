@@ -16,6 +16,7 @@
 
 #Path to remoll
 REMOLLDIRECTORY=~/remoll_Sep18
+HOMEDIRECTORY=$(pwd)
 #Path to the GDML generator
 GEOGENDIRECTORY=~/geoGen
 #Name of CSV file to read and edit geometry parameters
@@ -107,7 +108,7 @@ cp macro_template.mac $MACROPATH
 #get array of quartz center positions
 readarray -t quartzCenter < <(cut -d, -f2 "${GEOGENDIRECTORY}/$CSV" )
 cp $GEOGENDIRECTORY/cadp.csv $GEOGENDIRECTORY/cadp_opt.csv
-OUTPUTDIRECTORY=$GEOGENDIRECTORY/output_optimize_${ring}${sector}_$parname
+OUTPUTDIRECTORY=$HOMEDIRECTORY/output_optimize_${ring}${sector}_$parname
 [ -d "$OUTPUTDIRECTORY" ] && { rm -r $OUTPUTDIRECTORY; mkdir $OUTPUTDIRECTORY; }
 
 cp get_pe.C $OUTPUTDIRECTORY/

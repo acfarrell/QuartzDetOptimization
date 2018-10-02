@@ -25,7 +25,7 @@ static const double twopi = 2*TMath::Pi();
 
 double langaufunc(double *x, double *par);
 
-void get_pe(){
+int main(){
 
   TFile *root_file = TFile::Open("ROOTFILE");
   if (!root_file){
@@ -106,6 +106,7 @@ void get_pe(){
 
   output << fit_func->GetParameter(1) << "\n";
   output.close();
+  return 0;
 }
 
 //Fitting function

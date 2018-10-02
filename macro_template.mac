@@ -22,7 +22,7 @@
 
 # Electrons incident on quartz------------
 
-/remoll/evgen/beam/x QUARTZCENTER mm
+/remoll/evgen/beam/x -QUARTZCENTER mm
 /remoll/evgen/beam/z -500 mm
 /remoll/beamene 855 MeV
 
