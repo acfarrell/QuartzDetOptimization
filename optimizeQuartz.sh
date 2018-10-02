@@ -110,6 +110,7 @@ cp $GEOGENDIRECTORY/cadp.csv $GEOGENDIRECTORY/cadp_opt.csv
 OUTPUTDIRECTORY=$GEOGENDIRECTORY/output_optimize_${ring}${sector}_$parname
 [ ! -d "$OUTPUTDIRECTORY" ] && { mkdir $OUTPUTDIRECTORY; }
 cp get_pe.C $OUTPUTDIRECTORY/
+cp Makefile $OUTPUTDIRECTORY/
 cp $REMOLLDIRECTORY/build/libremoll.so $OUTPUTDIRECTORY
 cp $REMOLLDIRECTORY/build/remolltypes.hh $OUTPUTDIRECTORY
 echo "Created output directory at $OUTPUTDIRECTORY"
@@ -203,7 +204,8 @@ do
   sed -i 's;'"$LASTFILE"';'"$NEWFILE"';g' get_pe.C
   
   printf "$currentval," >> yield.csv
-  g++ -g -c get_pe.C -o get_pe.o `root-config --cflags --glibs`
-  g++ get_pe.o $OUTPUTDIRECTORY/libremoll.so -o get_pe `root-config --cflags --glibs` -L$OUTPUTDIRECTORY -lremoll -Wl,-R$OUTPUTDIRECTORY
+  make
+  ./get_pe
+
   ((currentval+=step))
 done
