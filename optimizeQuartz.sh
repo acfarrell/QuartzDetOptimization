@@ -22,7 +22,6 @@ GEOGENDIRECTORY=~/geoGen
 #Name of CSV file to read and edit geometry parameters
 CSV=cadp_opt.csv
 [ ! -f ${GEOGENDIRECTORY}/${CSV} ] && { echo "$CSV file not found"; exit 99; }
-cp $GEOGENDIRECTORY/cadp.csv $GEOGENDIRECTORY/cadp_opt.csv
 ring=$1
 sector=$2
 
@@ -95,9 +94,9 @@ currentval=$minval
 #set up geometry directory in remoll
 GEODIRECTORY=${REMOLLDIRECTORY}/geometry_Optimize_${parname}
 [ ! -d "${GEODIRECTORY}" ] && { mkdir $GEODIRECTORY; }
-cp -rp ${REMOLLDIRECTORY}/geometry_Mainz/schema $GEODIRECTORY
-cp -rp ${REMOLLDIRECTORY}/geometry_Mainz/materials.xml $GEODIRECTORY
-cp -rp ${REMOLLDIRECTORY}/geometry_Mainz/targetDaughter.gdml $GEODIRECTORY
+cp -rp ${REMOLLDIRECTORY}/geometry_Mainz/schema $GEODIRECTORY/
+cp -rp ${REMOLLDIRECTORY}/geometry_Mainz/materials.xml $GEODIRECTORY/
+cp -rp ${REMOLLDIRECTORY}/geometry_Mainz/targetDaughter.gdml $GEODIRECTORY/
 cp mollerMother_template.gdml $GEODIRECTORY/mollerMother.gdml 
 echo "Created geometry directory at $GEODIRECTORY"
 
@@ -107,15 +106,15 @@ cp macro_template.mac $MACROPATH
 
 #get array of quartz center positions
 readarray -t quartzCenter < <(cut -d, -f2 "${GEOGENDIRECTORY}/$CSV" )
-cp $GEOGENDIRECTORY/cadp.csv $GEOGENDIRECTORY/cadp_opt.csv
+
 OUTPUTDIRECTORY=$HOMEDIRECTORY/output_optimize_${ring}${sector}_$parname
-[ -d "$OUTPUTDIRECTORY" ] && { rm -r $OUTPUTDIRECTORY; mkdir $OUTPUTDIRECTORY; }
+[ -d "$OUTPUTDIRECTORY" ] && { rm -r $OUTPUTDIRECTORY; }
+mkdir $OUTPUTDIRECTORY 
+cp -f get_pe.C $OUTPUTDIRECTORY/
+cp -f Makefile $OUTPUTDIRECTORY/
 
-cp get_pe.C $OUTPUTDIRECTORY/
-cp Makefile $OUTPUTDIRECTORY/
-
-cp $REMOLLDIRECTORY/build/libremoll.so $OUTPUTDIRECTORY/
-cp $REMOLLDIRECTORY/include/remolltypes.hh $OUTPUTDIRECTORY/
+cp -f $REMOLLDIRECTORY/build/libremoll.so $OUTPUTDIRECTORY/
+cp -f $REMOLLDIRECTORY/include/remolltypes.hh $OUTPUTDIRECTORY/
 echo "Created output directory at $OUTPUTDIRECTORY"
 
 if [ ! $ring -lt 5 ] 
